@@ -1,0 +1,26 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+url = 'https://mfd.ru/currency/?currency=USD'
+r = requests.get(url)
+#print(r.text)
+soup = BeautifulSoup(r.text, 'lxml')
+
+table= soup.find(class_='mfd-content-container').find('table')
+headers=[]
+for i in table.find_all('tr'):
+    data=i.text
+    headers.append(data)
+
+   # print (headers)
+mydata = pd.DataFrame(columns = headers)
+for j in table.find_all('tr')[1:]:
+    row_data = j.find_all('td')
+    row = [i.text for i in row_data]
+    length = len(mydata)
+
+    print(row)
+
+
+
