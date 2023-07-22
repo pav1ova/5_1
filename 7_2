@@ -1,0 +1,31 @@
+import requests
+from bs4 import BeautifulSoup
+from matplotlib import pyplot
+import matplotlib.pyplot as plt
+import pandas as pd
+from datetime import datetime
+import matplotlib.dates
+from matplotlib.ticker import MaxNLocator
+import numpy as np
+
+url = 'https://mfd.ru/currency/?currency=USD'
+r = requests.get(url)
+#print(r.text)
+soup = BeautifulSoup(r.text, 'lxml')
+
+table= soup.find(class_='mfd-content-container').find('table')
+headers=[]
+for i in table.find_all('tr'):
+    data=i.text
+    headers.append(data)
+x_list =[]
+y_list= []
+for j in table.find_all('tr')[1:]:
+    row_data = j.find_all('td')
+    if len(row_data)>0:
+            x_list.append(datetime.strptime(row_data[0].text[2:], '%d.%m.%Y'))
+            y_list.append(float(row_data[1].text))
+
+
+pyplot.plot(x_list,y_list, color= 'red')
+pyplot.show()
