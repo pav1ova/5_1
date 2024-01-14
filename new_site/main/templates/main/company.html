@@ -1,0 +1,13 @@
+
+{% block title %}
+    <title>People</title>
+{% endblock %}
+{% block content %}
+    {% for el in data %}
+        <H2>{{ el.name }} {{ el.surname}} </H2>
+
+        <p> e-mail: {{ el.email }}</p>
+        <p> telephone: {{ el.telephone }}</p>
+        <br>
+    {% endfor %}
+{% endblock %}

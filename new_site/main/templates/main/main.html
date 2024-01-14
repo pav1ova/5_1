@@ -1,0 +1,11 @@
+{% extends 'main/layout.html'%}
+
+{% block title%}Главная страница{% endblock %}
+
+{% block content%}
+    <h1> </h1>
+    <p> Компании </p>
+    {% for c in companies %}
+    <a href="">{{ c.name }}</a>
+    {% endfor %}
+{% endblock %}
